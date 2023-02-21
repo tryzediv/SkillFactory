@@ -6,6 +6,7 @@ money = input('Введите сумму, которую Вы планирует
 if money.isdigit():
     for profit in per_cent.values():
         deposit.append(int((int(money) * profit) / 100))
+    print(deposit)
     print('Максимальная сумма, которую вы можете заработать — {}'.format(max(deposit)))
 else:
     print('Пожалуйста введите число')
@@ -16,4 +17,5 @@ deposit.append(per_cent['ТКБ'] * int(money) / 100)
 deposit.append(per_cent['СКБ'] * int(money) / 100)
 deposit.append(per_cent['ВТБ'] * int(money) / 100)
 deposit.append(per_cent['СБЕР'] * int(money) / 100)
+print(deposit)
 print('Максимальная сумма, которую вы можете заработать — {}'.format(max(deposit)))
