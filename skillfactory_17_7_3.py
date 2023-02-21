@@ -8,6 +8,7 @@ if money.isdigit():
         deposit.append(int((int(money) * profit) / 100))
     print(deposit)
     print('Максимальная сумма, которую вы можете заработать — {}'.format(max(deposit)))
+    deposit.clear()
 else:
     print('Пожалуйста введите число')
 
