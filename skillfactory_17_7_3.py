@@ -14,9 +14,9 @@ else:
 
 
 #Решение без циклов
-deposit.append(per_cent['ТКБ'] * int(money) / 100)
-deposit.append(per_cent['СКБ'] * int(money) / 100)
-deposit.append(per_cent['ВТБ'] * int(money) / 100)
-deposit.append(per_cent['СБЕР'] * int(money) / 100)
+deposit.append(int(per_cent['ТКБ'] * int(money) / 100))
+deposit.append(int(per_cent['СКБ'] * int(money) / 100))
+deposit.append(int(per_cent['ВТБ'] * int(money) / 100))
+deposit.append(int(per_cent['СБЕР'] * int(money) / 100))
 print(deposit)
 print('Максимальная сумма, которую вы можете заработать — {}'.format(max(deposit)))
