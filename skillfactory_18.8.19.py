@@ -17,7 +17,7 @@ try:
 
     #Выводим сумму к оплате, учитывая скидку, если больше 3х билетов
     if len(result) > 3:
-        sale = sum(result) * 10 / 100
+        sale = int(sum(result) * 10 / 100)
         print('Сумма к оплате: {} руб.'.format(sum(result) - sale))
     else:
         print('Сумма к оплате: {} руб.'.format(sum(result)))
