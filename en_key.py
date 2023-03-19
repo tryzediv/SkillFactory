@@ -1,8 +1,8 @@
 # Программа позволяет изменить текст, если пользователь ошибся раскладкой клавиатуры
-en_keys = "`qwertyuiop[]asdfghjkl;'zxcvbnm,/"
+en_keys = "`qwertyuiop[]asdfghjkl;'zxcvbnm,."
 ru_keys = "ёйцукенгшщзхъфывапролджэячсмитьбю"
 
-inp_text = 'ghbdtn ощрт как дела?'
+inp_text = 'fuf yf cfvjv ltkt j[etyyj vj;yj yt gthtrk.xfnm hfcrkflre'
 result = ''
 
 if inp_text[0].lower() in en_keys:
