@@ -1,5 +1,7 @@
 import unittest
 
+import pytest
+
 
 class TestAbs(unittest.TestCase):
     def test_abs1(self):
@@ -10,4 +12,4 @@ class TestAbs(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    pytest.main()
