@@ -45,67 +45,36 @@ class TestMainPage:
         time.sleep(.5)
         find_button.click()
         time.sleep(1)
-        # Открываем первую квартиру
+
         first_flat = browser.find_element(
             By.XPATH, '//*[@id="object-list"]/div/div/div[1]/a/div/div[1]/div[1]'
         )
-        first_flat.click()
-        # Переходим на новую страницу
-        new_window = browser.window_handles[1]
-        browser.switch_to.window(new_window)
-        # Находим количество комнат
-        room_text = browser.find_element(
-            By.XPATH, '//*[@id="about"]/div[1]/div/div/div[2]/div/div/div/div[1]/span'
-        )
-        # Находим цену
-        price = browser.find_element(
-            By.XPATH, '//*[@id="about"]/div[1]/div/div/div[1]/div[1]/div[1]/span'
-        ).text.replace(' ', '')
-        # Сравниваем данные с условиями
-        print('Тест первой квартиры')
-        assert '1-комн. квартира' in room_text.text, '1 Квартира. Не совпадает количество комнат'
-        assert min_price <= int(price) <= max_price, '1 Квартира. Не совпадает цена'
-
-        browser.switch_to.window(first_window)
-        # Открываем вторую квартиру
         second_flat = browser.find_element(
             By.XPATH, '//*[@id="object-list"]/div/div/div[2]/a/div/div[1]'
         )
-        second_flat.click()
-        # Переходим на новую страницу
-        new_window = browser.window_handles[1]
-        browser.switch_to.window(new_window)
-        # Находим количество комнат
-        room_text = browser.find_element(
-            By.XPATH, '//*[@id="about"]/div[1]/div/div/div[2]/div/div/div/div[1]/span'
-        )
-        # Находим цену
-        price = browser.find_element(
-            By.XPATH, '//*[@id="about"]/div[1]/div/div/div[1]/div[1]/div[1]/span'
-        ).text.replace(' ', '')
-        # Сравниваем данные с условиями
-        print('Тест второй квартиры')
-        assert '1-комн. квартира' in room_text.text, '2 Квартира. Не совпадает количество комнат'
-        assert min_price <= int(price) <= max_price, '2 Квартира. Не совпадает цена'
-
-        browser.switch_to.window(first_window)
-        # Открываем третью квартиру
         third_flat = browser.find_element(
             By.XPATH, '//*[@id="object-list"]/div/div/div[3]/a/div/div[1]/div[1]'
         )
-        third_flat.click()
-        # Переходим на новую страницу
-        new_window = browser.window_handles[1]
-        browser.switch_to.window(new_window)
-        # Находим количество комнат
-        room_text = browser.find_element(
-            By.XPATH, '//*[@id="about"]/div[1]/div/div/div[2]/div/div/div/div[1]/span'
-        )
-        # Находим цену
-        price = browser.find_element(
-            By.XPATH, '//*[@id="about"]/div[1]/div/div/div[1]/div[1]/div[1]/span'
-        ).text.replace(' ', '')
-        # Сравниваем данные с условиями
-        print('Тест третей квартиры')
-        assert '1-комн. квартира' in room_text.text, '3 Квартира. Не совпадает количество комнат'
-        assert min_price <= int(price) <= max_price, '3 Квартира. Не совпадает цена'
+
+        pages = [first_flat, second_flat, third_flat]
+        page_counter = 1
+        for page in pages:
+            page.click()
+            # Переходим на новую страницу
+            new_window = browser.window_handles[page_counter]
+            browser.switch_to.window(new_window)
+            # Находим количество комнат
+            room_text = browser.find_element(
+                By.XPATH, '//*[@id="about"]/div[1]/div/div/div[2]/div/div/div/div[1]/span'
+            )
+            # Находим цену
+            price = browser.find_element(
+                By.XPATH, '//*[@id="about"]/div[1]/div/div/div[1]/div[1]/div[1]/span'
+            ).text.replace(' ', '')
+            # Сравниваем данные с условиями
+            print(f'Старт теста {page_counter} квартиры')
+            assert '1-комн. квартира' in room_text.text, f'{page_counter} Квартира. Не совпадает количество комнат'
+            assert min_price <= int(price) <= max_price, f'{page_counter} Квартира. Не совпадает цена'
+            print(f'Тест {page_counter} квартиры завершен')
+            page_counter += 1
+            browser.switch_to.window(first_window)
