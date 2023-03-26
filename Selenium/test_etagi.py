@@ -28,12 +28,12 @@ class TestMainPage:
             By.XPATH, '//*[@id="wARPj2Cdgv"]/div[2]/div/div/div[1]/div[2]/div/div/button[2]'
         )
         room_button.click()
-        # Вводим цену от 1 000 000
+        # Вводим цену от
         price_ot = browser.find_element(
             By.XPATH, '//*[@id="wARPj2Cdgv"]/div[2]/div/div/div[1]/div[3]/div/div[2]/div[1]/div/input'
         )
         price_ot.send_keys(min_price)
-        # Вводим цену до 3 000 000
+        # Вводим цену до
         price_do = browser.find_element(
             By.XPATH, '//*[@id="wARPj2Cdgv"]/div[2]/div/div/div[1]/div[3]/div/div[2]/div[2]/div/input'
         )
