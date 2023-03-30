@@ -49,7 +49,8 @@ try:
         print("Указанное число не входит в диапазон списка")
     else:
         # С помощью алгоритма поиска находим индекс числа
-        print(binary_search(numbers, digit, 0, len(numbers)))
+        digit_index = binary_search(numbers, digit, 0, len(numbers))
+        print(f'Индекс числа {digit} - {digit_index}')
     print(numbers)
 except ValueError:
     print('Введите целое число')
