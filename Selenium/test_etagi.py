@@ -44,7 +44,7 @@ class TestMainPage:
         )
         time.sleep(.5)
         find_button.click()
-        time.sleep(1)
+        time.sleep(2)
 
         first_flat = browser.find_element(
             By.XPATH, '//*[@id="object-list"]/div/div/div[1]/a/div/div[1]/div[1]'
