@@ -88,3 +88,20 @@ def test_successful_delete_self_pet():
     # Проверяем что статус ответа равен 200 и в списке питомцев нет id удалённого питомца
     assert status == 200, f'Статус код - {status}'
     assert pet_id not in my_pets.values(), 'Питомец не удален'
+
+
+def test_add_new_pet_without_photo_valid_data(name='Мурлок', animal_type='Кот', age='5'):
+    """Проверяем что можно добавить питомца без фото с корректными данными"""
+
+    # Запрашиваем ключ api и сохраняем в переменую auth_key
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+
+    # Добавляем питомца
+    status, result = pf.new_pet_without_photo(auth_key, name, animal_type, age)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200, f'Статус код - {status}'
+    assert result['name'] == name, 'Имя питомца не совпадает'
+
+
+
