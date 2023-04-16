@@ -145,23 +145,26 @@ def test_successful_update_self_pet_info(name='Мурзик', animal_type='Ко�
         raise Exception("There is no my pets")
 
 
-def test_update_alien_pet_info(name='Мурзик', animal_type='Котэ', age='7'):
+def test_update_alien_pet_info(name='Мурзик', animal_type='Котэ', age='99'):
     """Проверяем возможность обновления информации чужого питомца"""
     # Добавляем питомца со второго аккаунта
     _, alien_auth_key = pf.get_api_key(alien_email, alien_password)
     _, alien_pet = pf.new_pet_without_photo(alien_auth_key, name='Саня', animal_type='Рысь', age='4')
     alien_pet_id = alien_pet['id']
 
-    # Получаем свой ключ auth_key и список всех питомцев
+    # Получаем свой ключ auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
 
-    # Пробуем обновить его имя, тип и возраст
+    # Пробуем обновить имя, тип и возраст чужого питомца
     status, result = pf.update_pet_info(auth_key, alien_pet_id, name, animal_type, age)
 
+    # Получаем список всех питомцев
+    _, all_pets = pf.get_list_of_pets(auth_key, filter='')
 
     # Проверяем что статус ответа = 200 и имя питомца соответствует заданному
-    assert status == 200, f'Статус код - {status}'
-    assert result['name'] != name, 'Имя питомца не совпадает'
+    assert all_pets['pets'][0]['name'] != name, 'Чужой питомец имеет имя нашего питомца'
+    assert status == 403, f'Статус код - {status}, возможно обновить данные чужого питомца'
+    # assert result['name'] == name, 'Имя питомца не совпадает'
 
 
 def test_successful_delete_self_pet():
