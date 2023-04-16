@@ -43,8 +43,8 @@ def test_add_new_pet_with_valid_data(name='Барбоскин', animal_type='д�
     status, result = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
 
     # Сверяем полученный ответ с ожидаемым результатом
-    assert status == 200
-    assert result['name'] == name
+    assert status == 200, f'Статус код - {status}'
+    assert result['name'] == name, 'Имя питомца не совпадает'
 
 
 def test_successful_update_self_pet_info(name='Мурзик', animal_type='Котэ', age=5):
@@ -59,8 +59,8 @@ def test_successful_update_self_pet_info(name='Мурзик', animal_type='Ко�
         status, result = pf.update_pet_info(auth_key, my_pets['pets'][0]['id'], name, animal_type, age)
 
         # Проверяем что статус ответа = 200 и имя питомца соответствует заданному
-        assert status == 200
-        assert result['name'] == name
+        assert status == 200, f'Статус код - {status}'
+        assert result['name'] == name, 'Имя питомца не совпадает'
     else:
         # если спиок питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
         raise Exception("There is no my pets")
@@ -86,5 +86,5 @@ def test_successful_delete_self_pet():
     _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
 
     # Проверяем что статус ответа равен 200 и в списке питомцев нет id удалённого питомца
-    assert status == 200
-    assert pet_id not in my_pets.values()
+    assert status == 200, f'Статус код - {status}'
+    assert pet_id not in my_pets.values(), 'Питомец не удален'
