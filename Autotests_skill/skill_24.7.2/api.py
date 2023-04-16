@@ -1,5 +1,6 @@
 import json
 import requests
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 
 class PetFriends:
@@ -46,13 +47,14 @@ class PetFriends:
         """Метод отправляет (постит) на сервер данные о добавляемом питомце и возвращает статус
         запроса на сервер и результат в формате JSON с данными добавленного питомца"""
 
-        data = {
+        data = MultipartEncoder(
+            fields={
                 'name': name,
                 'animal_type': animal_type,
                 'age': age,
                 'pet_photo': (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')
-            }
-        headers = {'auth_key': auth_key['key'], 'Content-Type': data}
+            })
+        headers = {'auth_key': auth_key['key'], 'Content-Type': data.content_type}
 
         res = requests.post(self.base_url + 'api/pets', headers=headers, data=data)
         status = res.status_code
