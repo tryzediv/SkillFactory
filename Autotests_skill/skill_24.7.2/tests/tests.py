@@ -251,22 +251,22 @@ def test_add_pet_photo(pet_photo='images/cat.jpg'):
         raise Exception("There is no my pets")
 
 
-def test_add_alien_pet_photo(pet_photo='images/cat.jpg'):
+def test_add_pet_photo_without_key(pet_photo='images/cat.jpg'):
     """Проверяем возможность добавления фото чужому питомцу"""
 
-    # Добавляем питомца со второго аккаунта
-    _, alien_auth_key = pf.get_api_key(alien_email, alien_password)
-    _, alien_pet = pf.new_pet_without_photo(alien_auth_key, name='Олег', animal_type='Газманян', age='46')
-    alien_pet_id = alien_pet['id']
-
-    # Получаем наш ключ auth_key
+    # Получаем ключ auth_key, чтобы получить список своих питомцев
     _, auth_key = pf.get_api_key(valid_email, valid_password)
+    _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+
+    # Сздаем пустой ключ
+    auth_key = {'key': ''}
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
 
-    # Пробуем добавить фото чужому питомцу
-    status, result = pf.add_pet_photo(auth_key, alien_pet_id, pet_photo)
+    # Пробуем добавить фото с пустым ключом
+    status, result = pf.add_pet_photo(auth_key, my_pets['pets'][0]['id'], pet_photo)
 
     # Проверяем что статус ответа = 403
-    assert status == 403, f'Статус код - {status}, возможно изменить фото чужого питомца'
+    assert status == 403, f'Статус код - {status}, возможно изменить фото с пустым ключом'
+    assert 'Please provide &#x27;auth_key&#x27' in result, 'Нет сообщения об ошибке'
