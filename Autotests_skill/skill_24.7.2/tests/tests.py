@@ -162,9 +162,8 @@ def test_update_alien_pet_info(name='Мурзик', animal_type='Котэ', age=
     _, all_pets = pf.get_list_of_pets(auth_key, filter='')
 
     # Проверяем что статус ответа = 200 и имя питомца соответствует заданному
-    assert all_pets['pets'][0]['name'] != name, 'Чужой питомец имеет имя нашего питомца'
     assert status == 403, f'Статус код - {status}, возможно обновить данные чужого питомца'
-    # assert result['name'] == name, 'Имя питомца не совпадает'
+    assert all_pets['pets'][0]['name'] != name, 'Чужой питомец имеет имя нашего питомца'
 
 
 def test_successful_delete_self_pet():
@@ -189,6 +188,28 @@ def test_successful_delete_self_pet():
     # Проверяем что статус ответа равен 200 и в списке питомцев нет id удалённого питомца
     assert status == 200, f'Статус код - {status}'
     assert pet_id not in my_pets.values(), 'Питомец не удален'
+
+
+def test_delete_alien_pet():
+    """Проверяем возможность удаления чужого питомца"""
+
+    # Добавляем питомца со второго аккаунта
+    _, alien_auth_key = pf.get_api_key(alien_email, alien_password)
+    _, alien_pet = pf.new_pet_without_photo(alien_auth_key, name='Мурка', animal_type='Корова', age='6')
+    alien_pet_id = alien_pet['id']
+
+    # Получаем наш ключ auth_key
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+
+    # Пытаемся удалить чужого питомца
+    status, _ = pf.delete_pet(auth_key, alien_pet_id)
+
+    # Получаем список всех питомцев
+    _, all_pets = pf.get_list_of_pets(auth_key, filter='')
+
+    # Проверяем что статус ответа = 200 и имя питомца соответствует заданному
+    assert status == 403, f'Статус код - {status}, возможно удалить чужого питомца'
+    assert all_pets['pets'][0]['id'] == alien_pet_id, 'Чужой питомец удален'
 
 
 def test_add_new_pet_without_photo_valid_data(name='Мурлок', animal_type='Кот', age='5'):
