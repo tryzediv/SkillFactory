@@ -1,8 +1,22 @@
 from api import PetFriends
 from settings import *
+from datetime import *
+import pytest
 import os
 
 pf = PetFriends()
+
+
+@pytest.fixture(autouse=True)
+def time_delta():
+    status, auth_key = PetFriends().get_api_key(valid_email, valid_password)
+    if status == 200:
+        print('API ключ получен')
+
+    start_time = datetime.now()
+    yield
+    end_time = datetime.now()
+    print(f"\nТест шел: {end_time - start_time}")
 
 
 def test_get_api_key_for_valid_user(email=valid_email, password=valid_password):
@@ -43,7 +57,6 @@ def test_get_all_pets_with_valid_key(filter=''):
     Для этого сначала получаем api ключ и сохраняем в переменную auth_key. Далее используя этого ключ
     запрашиваем список всех питомцев и проверяем что список не пустой.
     Доступное значение параметра filter - 'my_pets' либо '' """
-
     _, auth_key = pf.get_api_key(valid_email, valid_password)
     status, result = pf.get_list_of_pets(auth_key, filter)
 
