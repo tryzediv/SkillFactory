@@ -64,8 +64,11 @@ class TestPetFriends:
         assert len(pets_breed) == all_pets, 'Не у всех питомцев есть порода'
         assert len(pets_age) == all_pets, 'Не у всех питомцев есть возраст'
         # 4. У всех питомцев разные имена
-        assert len(unique_names) >= len(pets_names), 'Не у всех питомцев уникальное имя'
+        assert len(unique_names) == len(pets_names), 'Не у всех питомцев уникальное имя'
 
+        WebDriverWait(browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, petsCard))
+        )
         pets_cards = browser.find_elements(By.CSS_SELECTOR, petsCard)
         all_pets_info = []
         for i in pets_cards:
