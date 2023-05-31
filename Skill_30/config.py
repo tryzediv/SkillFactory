@@ -1,0 +1,18 @@
+# Логин и пароль
+email = 'qwe@qweqwe.ru'
+password = 'qwejyqiuweyiuqwyeiu'
+name = 'qpwoejoqweqweqweqweqwe'
+# Селекторы и xpath
+registryButton = 'body > div > div > div:nth-child(6) > button'
+haveAccount = 'body > div > div > form > div.text-center > a'
+emailField = '#email'
+passwordField = '#pass'
+enterButton = 'body > div > div > form > div.text-center > button'
+myPets = '#navbarNav > ul > li:nth-child(1) > a'
+userName = 'body > div.task2.fill > div > div.\.col-sm-4.left > h2'
+petsQuantity = 'body > div.task2.fill > div > div.\.col-sm-4.left'
+petsCard = '#all_my_pets > table > tbody > tr'
+cardImages = '//*[@id="all_my_pets"]/table/tbody/tr/th/img'
+cardNames = '//*[@id="all_my_pets"]/table/tbody/tr/td[1]'
+cardBreed = '//*[@id="all_my_pets"]/table/tbody/tr/td[2]'
+cardAge = '//*[@id="all_my_pets"]/table/tbody/tr/td[3]'
