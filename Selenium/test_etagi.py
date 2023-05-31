@@ -12,6 +12,7 @@ max_price = 3000000
 def browser():
     print("\nstart Chrome browser for test..")
     browser = webdriver.Chrome()
+    browser.maximize_window()
     browser.implicitly_wait(5)
     yield browser
     print("\nquit browser..")
